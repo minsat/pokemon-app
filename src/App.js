@@ -12,52 +12,52 @@ function App() {
 
 
     useEffect(() => {
-        const getPokemonList = async () => {
-
-            try {
-
-                const pokemonListFromAPI = await fetchOffsetPokemonList(25);
-
-                const pokemonInfo = await Promise.all(pokemonListFromAPI.results.map(async (item, i) => {
-                    const detailedPokemonInfo = await fetchDetailedInfo(item.url);
-                    item.name = detailedPokemonInfo.name.charAt(0).toUpperCase() + detailedPokemonInfo.name.slice(1);
-                    item.abilities = detailedPokemonInfo.abilities.map(item => item.ability.name)
-                        .sort((a, b) => { return a.localeCompare(b) });
-                    item.id = i;
-                    item.pictureUrl = detailedPokemonInfo.sprites.front_default;
-                    return item;
-                }));
-
-                setPokemonList(pokemonInfo);
-
-            } catch (err) {
-                setError('Failed to fetch pokemon list...')
-            }
-        }
-
         getPokemonList();
-
     }, [])
 
-    const fetchPokemonList = async () => {
-        const res = await fetch('https://pokeapi.co/api/v2/pokemon/');
-        const data = await res.json();
+    const getPokemonList = async () => {
 
-        return data;
+        try {
+            const listOfRandomNumbers = generateListOfRandomNumbers();
+
+            const pokemonInfo = await Promise.all(listOfRandomNumbers.map(async number => {
+                let detailedPokemonInfo = await fetchDetailedInfoByID(number);
+                let pokemon = {
+                    name: detailedPokemonInfo.name.charAt(0).toUpperCase() + detailedPokemonInfo.name.slice(1),
+                    abilities: detailedPokemonInfo.abilities.map(item => item.ability.name).sort((a, b) => { return a.localeCompare(b) }),
+                    id: number,
+                    pictureUrl: detailedPokemonInfo.sprites.front_default
+                }
+
+                return pokemon;
+            }))
+
+            setPokemonList(pokemonInfo);
+
+        } catch (err) {
+            setError('Failed to fetch pokemon list...')
+        }
     }
 
-    const fetchOffsetPokemonList = async (offset) => {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`);
+    const fetchDetailedInfoByID = async (id) => {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
         const data = await res.json();
 
         return data;
+
     }
 
-    const fetchDetailedInfo = async (url) => {
-        const res = await fetch(url);
-        const data = await res.json();
+    const generateListOfRandomNumbers = () => {
 
-        return data;
+        const listOfRandomNumbers = []
+
+        while (listOfRandomNumbers.length < 20) {
+            let randomNumber = Math.floor(Math.random() * 151) + 1;
+            if (!listOfRandomNumbers.includes(randomNumber))
+                listOfRandomNumbers.push(randomNumber);
+        }
+
+        return listOfRandomNumbers;
     }
 
     const deletePokemon = (id) => {
@@ -76,13 +76,12 @@ function App() {
                 {error !== '' && <Alert variant={'danger'}>
                     {error}
                 </Alert>}
-
                 <Row className="justify-content-center">
                     <Col xxl={5} xl={5} lg={5} md={7}>
                         <SearchBar filterQuery={filterQuery} setFilterQuery={setFilterQuery} />
                     </Col>
                     <Col xxl={5} xl={4} lg={5} md={4}>
-                        <Button className="d-block ms-auto me-auto ms-md-auto me-md-0" id="generate-new-pokemon">Generate new pokemon!</Button>
+                        <Button className="d-block ms-auto me-auto ms-md-auto me-md-0" id="generate-new-pokemon" onClick={getPokemonList}>Generate new pokemon!</Button>
                     </Col>
                 </Row>
                 <PokemonList pokemonList={filterQuery !== '' ? filteredPokemonList() : pokemonList} onDelete={deletePokemon} />
