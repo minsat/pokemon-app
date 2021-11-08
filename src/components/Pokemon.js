@@ -5,7 +5,7 @@ export const Pokemon = ({ pokemon, onDelete }) => {
 
     const [showAbilities, toggleShowAbilities] = useState(false);
 
-    if (pokemon === undefined)
+    if (!pokemon)
         return (
             <div />
         )

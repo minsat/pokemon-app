@@ -12,14 +12,6 @@ export const SearchBar = ({ filterQuery, setFilterQuery }) => {
                 </Col>
             </Form.Group>
         </Form>
-        // <Form onSubmit={e => { e.preventDefault(); }}>
-        //     <Form.Group className="mb-3 d-flex flex-row">
-        //         <Form.Label >Filter pokemon by name: </Form.Label>
-        //         <Form.Control type="text" placeholder="Enter pokemon name..."
-        //             value={filterQuery}
-        //             onInput={e => setFilterQuery(e.target.value)} />
-        //     </Form.Group>
-        // </Form>
     )
 }
 

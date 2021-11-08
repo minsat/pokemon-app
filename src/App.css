@@ -1,51 +1,51 @@
 body {
-	background-color: #f0f3f8;
+  background-color: #f0f3f8;
 }
 
 .pokemon-card {
-	width: 17rem;
-	border-radius: 20px;
-	box-shadow: 3px 3px 0px 1px #c9d6e6;
+  width: 17rem;
+  border-radius: 20px;
+  box-shadow: 3px 3px 0px 1px #c9d6e6;
 }
 
 .btn-primary {
-	background-color: #7284a8b2;
-	border-color: #7284a8b2;
+  background-color: #7284a8b2;
+  border-color: #7284a8b2;
 }
 
 .btn-primary:hover {
-	background-color: #7284A8;
-	border-color: #7284A8;
+  background-color: #7284a8;
+  border-color: #7284a8;
 }
 
 .btn-primary:focus {
-	background-color: #7284A8;
-	border-color: #7284A8;
-	box-shadow: 0 0 0 0.25rem #7284a850;
+  background-color: #7284a8;
+  border-color: #7284a8;
+  box-shadow: 0 0 0 0.25rem #7284a850;
 }
 
 .btn-danger {
-	background-color: #F05D5E;
-	border-color: #F05D5E;
+  background-color: #f05d5e;
+  border-color: #f05d5e;
 }
 
 .btn-danger:hover {
-	background-color: #ca3333;
-	border-color: #ca3333;
+  background-color: #ca3333;
+  border-color: #ca3333;
 }
 
 #generate-new-pokemon {
-	background-color: #f0a83d;
-	border-color: #f0a83d;
+  background-color: #f0a83d;
+  border-color: #f0a83d;
 }
 
 #generate-new-pokemon:hover {
-	background-color: #e28f11;
-	border-color: #e28f11;
+  background-color: #e28f11;
+  border-color: #e28f11;
 }
 
 #pokemon-logo {
-	display: block;
-	max-width: 80%;
-	margin: 30px auto 50px auto;
+  display: block;
+  max-width: 80%;
+  margin: 30px auto 50px auto;
 }
