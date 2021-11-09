@@ -10,7 +10,6 @@ function App() {
     const [filterQuery, setFilterQuery] = useState('');
     const [error, setError] = useState('');
 
-
     useEffect(() => {
         getPokemonList();
     }, [])
@@ -18,7 +17,7 @@ function App() {
     const getPokemonList = async () => {
 
         try {
-            const listOfRandomNumbers = generateListOfRandomNumbers();
+            const listOfRandomNumbers = generateListOfUniqueRandomNumbers();
 
             const pokemonInfo = await Promise.all(listOfRandomNumbers.map(async number => {
                 let detailedPokemonInfo = await fetchDetailedInfoByID(number);
@@ -44,10 +43,9 @@ function App() {
         const data = await res.json();
 
         return data;
-
     }
 
-    const generateListOfRandomNumbers = () => {
+    const generateListOfUniqueRandomNumbers = () => {
 
         const listOfRandomNumbers = []
 
@@ -86,8 +84,7 @@ function App() {
                 </Row>
                 <PokemonList pokemonList={filterQuery !== '' ? filteredPokemonList() : pokemonList} onDelete={deletePokemon} />
             </div>
-
-        </div >
+        </div>
     );
 }
 
